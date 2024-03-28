@@ -1,0 +1,130 @@
+{% extends 'dashboard/base.html' %}
+
+{% block content %}
+
+
+<div class="main-content">
+    <div class="page-header">
+        <h2 class="header-title">SHOP</h2>
+        <div class="header-sub-title">
+            <nav class="breadcrumb breadcrumb-dash">
+                <a href="#" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Dashboard</a>
+                <a class="breadcrumb-item" href="#">Category</a>
+                <span class="breadcrumb-item active">Ro`yxat</span>
+            </nav>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <h4>Categorylar ro`yxat</h4>
+            <div class="m-t-25">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Nom</th>
+                                <th scope="col">Harakatlar</th>
+                                <th scope="col">ochirish</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for q in queryset %}
+                            <tr>
+                                <th scope="row">{{forloop.counter}}</th>
+                                <td>{{q.name}}</td>
+                                <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter{{forloop.counter}}">
+                                    Tahrirlash
+                                </button></td>
+                                <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModalCenter{{forloop.counter}}">
+                                    Ochirish
+                                </button></td>
+                            </tr>
+                            <div class="modal fade" id="exampleModalCenter{{forloop.counter}}">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalCenterTitle">Tahrirlash</h5>
+                                            <button type="button" class="close" data-dismiss="modal">
+                                                <i class="anticon anticon-close"></i>
+                                            </button>
+                                        </div>
+                                        <div class="main-content">
+                                            <div class="page-header">
+                                            </div>
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h4>Category o`zgartrish</h4>
+                                                    <div class="m-t-25" style="max-width: 700px">
+                                                        <form method="post" enctype="multipart/form-data" action="{% url 'dashboard:category_update' q.id %}">{% csrf_token %}
+                                                            <div class="form-group row">
+                                                                <label for="inputPassword3" class="col-sm-2 col-form-label">Nom</label>
+                                                                <div class="col-sm-10">
+                                                                    <input type="text" class="form-control" id="inputPassword3" value="{{q.name}}" name="name">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <div class="col-sm-10">
+                                                                    <button type="submit" class="btn btn-primary">ozgartirish</button>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal fade" id="deleteModalCenter{{forloop.counter}}">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="deleteModalCenterTitle">Tahrirlash</h5>
+                                            <button type="button" class="close" data-dismiss="modal">
+                                                <i class="anticon anticon-close"></i>
+                                            </button>
+                                        </div>
+                                        <div class="main-content">
+                                            <div class="page-header">
+                                            </div>
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h4>Category o`chirish</h4>
+                                                    <div class="m-t-25" style="max-width: 700px">
+                                                        <form method="post" enctype="multipart/form-data" action="{% url 'dashboard:category_delete' q.id %}">{% csrf_token %}
+                                                            <div class="form-group row">
+                                                                <label for="inputPassword3" class="col-sm-2 col-form-label">Nom</label>
+                                                                <div class="col-sm-10">
+                                                                    <input type="text" class="form-control" id="inputPassword3" value="{{q.name}}" name="name">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <div class="modal-body">
+                                                                    <input type="checkbox" class="form-check-input" id="customCheckcolor7" required>
+                                                                    <label for="chkb">Ha</label> <br> <br>
+                                                                    <button type="button" class="btn btn-dark" data-bs-dismiss="modal" aria-hidden="true">Qaytish</button>
+                                                                    <button class="btn btn-danger" type="submit">O`chirish</button>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
